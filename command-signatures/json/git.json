@@ -199,6 +199,7 @@
         },
         {
             "name": "blame",
+            "description": "Show what revision and author last modified each line of a file",
             "args": {
                 "name": "file",
                 "template": "filepaths"
