@@ -1,0 +1,750 @@
+{
+    "name": "pi",
+    "description": "AI coding assistant with read, bash, edit, write tools",
+    "args": {
+        "name": "messages",
+        "description": "Messages to send, or @files to include",
+        "isOptional": true,
+        "isVariadic": true
+    },
+    "subcommands": [
+        {
+            "name": "install",
+            "description": "Install an extension source and add it to settings",
+            "args": {
+                "name": "source"
+            },
+            "options": [
+                {
+                    "name": [
+                        "-l",
+                        "--local"
+                    ],
+                    "description": "Install project-locally (.pi/settings.json)"
+                },
+                {
+                    "name": [
+                        "-a",
+                        "--approve"
+                    ],
+                    "description": "Trust project-local files for this command"
+                },
+                {
+                    "name": [
+                        "-na",
+                        "--no-approve"
+                    ],
+                    "description": "Ignore project-local files for this command"
+                }
+            ]
+        },
+        {
+            "name": [
+                "remove",
+                "uninstall"
+            ],
+            "description": "Remove an extension source from settings",
+            "args": {
+                "name": "source"
+            },
+            "options": [
+                {
+                    "name": [
+                        "-l",
+                        "--local"
+                    ],
+                    "description": "Remove from project settings (.pi/settings.json)"
+                },
+                {
+                    "name": [
+                        "-a",
+                        "--approve"
+                    ],
+                    "description": "Trust project-local files for this command"
+                },
+                {
+                    "name": [
+                        "-na",
+                        "--no-approve"
+                    ],
+                    "description": "Ignore project-local files for this command"
+                }
+            ]
+        },
+        {
+            "name": "update",
+            "description": "Update pi, extensions, or model catalogs",
+            "args": {
+                "name": "target",
+                "isOptional": true,
+                "suggestions": [
+                    {
+                        "name": "self",
+                        "description": "Update pi"
+                    },
+                    {
+                        "name": "pi",
+                        "description": "Update pi"
+                    }
+                ]
+            },
+            "options": [
+                {
+                    "name": "--self",
+                    "description": "Update pi only (default when no target is given)"
+                },
+                {
+                    "name": "--extensions",
+                    "description": "Update installed packages only"
+                },
+                {
+                    "name": "--models",
+                    "description": "Refresh model catalogs only"
+                },
+                {
+                    "name": "--all",
+                    "description": "Update pi and installed packages"
+                },
+                {
+                    "name": "--extension",
+                    "description": "Update one package only",
+                    "args": {
+                        "name": "source"
+                    }
+                },
+                {
+                    "name": "--force",
+                    "description": "Reinstall pi even if the current version is latest"
+                },
+                {
+                    "name": [
+                        "-a",
+                        "--approve"
+                    ],
+                    "description": "Trust project-local files for this command"
+                },
+                {
+                    "name": [
+                        "-na",
+                        "--no-approve"
+                    ],
+                    "description": "Ignore project-local files for this command"
+                }
+            ]
+        },
+        {
+            "name": "list",
+            "description": "List installed extensions from settings",
+            "options": [
+                {
+                    "name": [
+                        "-a",
+                        "--approve"
+                    ],
+                    "description": "Trust project-local files for this command"
+                },
+                {
+                    "name": [
+                        "-na",
+                        "--no-approve"
+                    ],
+                    "description": "Ignore project-local files for this command"
+                }
+            ]
+        },
+        {
+            "name": "config",
+            "description": "Open a TUI to enable or disable package resources",
+            "options": [
+                {
+                    "name": [
+                        "-l",
+                        "--local"
+                    ],
+                    "description": "Edit project overrides (.pi/settings.json)"
+                },
+                {
+                    "name": [
+                        "-a",
+                        "--approve"
+                    ],
+                    "description": "Trust project-local files for this command"
+                },
+                {
+                    "name": [
+                        "-na",
+                        "--no-approve"
+                    ],
+                    "description": "Ignore project-local files for this command"
+                }
+            ]
+        },
+        {
+            "name": "auth",
+            "description": "Print credentials or check provider readiness",
+            "subcommands": [
+                {
+                    "name": "print-api-key",
+                    "description": "Print a provider API key for an external client",
+                    "options": [
+                        {
+                            "name": "--provider",
+                            "description": "Provider of the credentials",
+                            "args": {
+                                "name": "name"
+                            }
+                        },
+                        {
+                            "name": "--model",
+                            "description": "Model whose provider to use",
+                            "args": {
+                                "name": "model"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "print-bearer-token",
+                    "description": "Print an OAuth bearer token, refreshing it if expired",
+                    "options": [
+                        {
+                            "name": "--provider",
+                            "description": "Provider of the credentials",
+                            "args": {
+                                "name": "name"
+                            }
+                        },
+                        {
+                            "name": "--model",
+                            "description": "Model whose provider to use",
+                            "args": {
+                                "name": "model"
+                            }
+                        },
+                        {
+                            "name": "--min-expiry",
+                            "description": "Refresh if the token expires sooner than this",
+                            "args": {
+                                "name": "duration"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "check",
+                    "description": "Check that a provider is ready to use",
+                    "options": [
+                        {
+                            "name": "--provider",
+                            "description": "Provider of the credentials",
+                            "args": {
+                                "name": "name"
+                            }
+                        },
+                        {
+                            "name": "--model",
+                            "description": "Model whose provider to use",
+                            "args": {
+                                "name": "model"
+                            }
+                        },
+                        {
+                            "name": "--json",
+                            "description": "Print the result as JSON"
+                        },
+                        {
+                            "name": "--credentials",
+                            "description": "Print the credential, or include it in the JSON"
+                        },
+                        {
+                            "name": "--no-refresh",
+                            "description": "Don't refresh expired OAuth credentials"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "mcp",
+            "description": "Check MCP servers, sign in to or out of OAuth servers",
+            "subcommands": [
+                {
+                    "name": "add",
+                    "description": "Add or replace a server in mcp.json",
+                    "args": [
+                        {
+                            "name": "server"
+                        },
+                        {
+                            "name": "command",
+                            "isOptional": true,
+                            "isCommand": true
+                        }
+                    ],
+                    "options": [
+                        {
+                            "name": [
+                                "-l",
+                                "--local"
+                            ],
+                            "description": "Use .pi/mcp.json in the current project"
+                        },
+                        {
+                            "name": "--url",
+                            "description": "Streamable HTTP server URL (instead of a command)",
+                            "args": {
+                                "name": "url"
+                            }
+                        },
+                        {
+                            "name": "--env",
+                            "description": "Environment variable for a stdio server",
+                            "isRepeatable": true,
+                            "args": {
+                                "name": "KEY=VALUE"
+                            }
+                        },
+                        {
+                            "name": "--cwd",
+                            "description": "Working directory for a stdio server",
+                            "args": {
+                                "name": "dir",
+                                "template": "folders"
+                            }
+                        },
+                        {
+                            "name": "--header",
+                            "description": "HTTP header",
+                            "isRepeatable": true,
+                            "args": {
+                                "name": "KEY=VALUE"
+                            }
+                        },
+                        {
+                            "name": "--bearer-token-env-var",
+                            "description": "Send \"Authorization: Bearer ${NAME}\"",
+                            "args": {
+                                "name": "NAME"
+                            }
+                        },
+                        {
+                            "name": "--oauth-client-id",
+                            "description": "Pre-registered OAuth client id",
+                            "args": {
+                                "name": "id"
+                            }
+                        },
+                        {
+                            "name": "--oauth-client-secret",
+                            "description": "OAuth client secret (may be ${NAME} or !command)",
+                            "args": {
+                                "name": "secret"
+                            }
+                        },
+                        {
+                            "name": "--oauth-callback-port",
+                            "description": "Fixed OAuth callback port",
+                            "args": {
+                                "name": "port"
+                            }
+                        },
+                        {
+                            "name": "--oauth-client-name",
+                            "description": "Client name sent when registering with the OAuth server",
+                            "args": {
+                                "name": "name"
+                            }
+                        },
+                        {
+                            "name": "--exposure",
+                            "description": "How the server's tools are offered",
+                            "args": {
+                                "name": "mode",
+                                "suggestions": [
+                                    "codemode",
+                                    "deferred",
+                                    "direct",
+                                    "hidden"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--description",
+                            "description": "What the server offers, shown in the system prompt",
+                            "args": {
+                                "name": "text"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "remove",
+                    "description": "Remove a server from mcp.json",
+                    "args": {
+                        "name": "server"
+                    },
+                    "options": [
+                        {
+                            "name": [
+                                "-l",
+                                "--local"
+                            ],
+                            "description": "Use .pi/mcp.json in the current project"
+                        }
+                    ]
+                },
+                {
+                    "name": "list",
+                    "description": "Show state, tools, and errors",
+                    "options": [
+                        {
+                            "name": "--json",
+                            "description": "Print the list as JSON"
+                        }
+                    ]
+                },
+                {
+                    "name": "login",
+                    "description": "Sign in through the browser",
+                    "args": {
+                        "name": "server"
+                    },
+                    "options": [
+                        {
+                            "name": "--timeout",
+                            "description": "How long to wait for the browser (default: 300)",
+                            "args": {
+                                "name": "seconds"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "logout",
+                    "description": "Delete the stored OAuth credentials",
+                    "args": {
+                        "name": "server"
+                    }
+                }
+            ]
+        }
+    ],
+    "options": [
+        {
+            "name": "--provider",
+            "description": "Provider to search for --model (requires --model)",
+            "args": {
+                "name": "name"
+            }
+        },
+        {
+            "name": "--model",
+            "description": "Model pattern or ID (\"provider/id\", optional \":<thinking>\")",
+            "args": {
+                "name": "pattern"
+            }
+        },
+        {
+            "name": "--api-key",
+            "description": "API key (defaults to env vars)",
+            "args": {
+                "name": "key"
+            }
+        },
+        {
+            "name": "--system-prompt",
+            "description": "System prompt",
+            "args": {
+                "name": "text"
+            }
+        },
+        {
+            "name": "--append-system-prompt",
+            "description": "Append text or file contents to the system prompt",
+            "isRepeatable": true,
+            "args": {
+                "name": "text"
+            }
+        },
+        {
+            "name": "--mode",
+            "description": "Output mode",
+            "args": {
+                "name": "mode",
+                "suggestions": [
+                    "text",
+                    "json",
+                    "rpc"
+                ]
+            }
+        },
+        {
+            "name": [
+                "-p",
+                "--print"
+            ],
+            "description": "Non-interactive mode: process prompt and exit"
+        },
+        {
+            "name": [
+                "-c",
+                "--continue"
+            ],
+            "description": "Continue previous session"
+        },
+        {
+            "name": [
+                "-r",
+                "--resume"
+            ],
+            "description": "Select a session to resume"
+        },
+        {
+            "name": "--session",
+            "description": "Use specific session file or partial UUID",
+            "args": {
+                "name": "path|id",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": "--session-id",
+            "description": "Use exact project session ID, creating it if missing",
+            "args": {
+                "name": "id"
+            }
+        },
+        {
+            "name": "--fork",
+            "description": "Fork specific session file or partial UUID into a new session",
+            "args": {
+                "name": "path|id",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": "--session-dir",
+            "description": "Directory for session storage and lookup",
+            "args": {
+                "name": "dir",
+                "template": "folders"
+            }
+        },
+        {
+            "name": "--no-session",
+            "description": "Don't save session (ephemeral)"
+        },
+        {
+            "name": [
+                "-n",
+                "--name"
+            ],
+            "description": "Set session display name",
+            "args": {
+                "name": "name"
+            }
+        },
+        {
+            "name": "--models",
+            "description": "Comma-separated model patterns for Ctrl+P cycling",
+            "args": {
+                "name": "patterns"
+            }
+        },
+        {
+            "name": [
+                "-nt",
+                "--no-tools"
+            ],
+            "description": "Disable all tools by default"
+        },
+        {
+            "name": [
+                "-nbt",
+                "--no-builtin-tools"
+            ],
+            "description": "Disable built-in tools, keep extension and custom tools"
+        },
+        {
+            "name": [
+                "-t",
+                "--tools"
+            ],
+            "description": "Comma-separated allowlist of tool names or patterns",
+            "args": {
+                "name": "tools"
+            }
+        },
+        {
+            "name": [
+                "-xt",
+                "--exclude-tools"
+            ],
+            "description": "Comma-separated denylist of tool names or patterns",
+            "args": {
+                "name": "tools"
+            }
+        },
+        {
+            "name": "--thinking",
+            "description": "Set thinking level",
+            "args": {
+                "name": "level",
+                "suggestions": [
+                    "off",
+                    "minimal",
+                    "low",
+                    "medium",
+                    "high",
+                    "xhigh",
+                    "max"
+                ]
+            }
+        },
+        {
+            "name": [
+                "-e",
+                "--extension"
+            ],
+            "description": "Load an extension file or builtin:<name>",
+            "isRepeatable": true,
+            "args": {
+                "name": "path",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": [
+                "-ne",
+                "--no-extensions"
+            ],
+            "description": "Disable extension discovery and built-in extensions"
+        },
+        {
+            "name": "--no-mcp",
+            "description": "Disable built-in MCP support"
+        },
+        {
+            "name": "--skill",
+            "description": "Load a skill file or directory",
+            "isRepeatable": true,
+            "args": {
+                "name": "path",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": [
+                "-ns",
+                "--no-skills"
+            ],
+            "description": "Disable skills discovery and loading"
+        },
+        {
+            "name": "--prompt-template",
+            "description": "Load a prompt template file or directory",
+            "isRepeatable": true,
+            "args": {
+                "name": "path",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": [
+                "-np",
+                "--no-prompt-templates"
+            ],
+            "description": "Disable prompt template discovery and loading"
+        },
+        {
+            "name": "--theme",
+            "description": "Load a theme file or directory",
+            "isRepeatable": true,
+            "args": {
+                "name": "path",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": "--use-theme",
+            "description": "Set the initial interactive theme for this run",
+            "args": {
+                "name": "name"
+            }
+        },
+        {
+            "name": "--no-themes",
+            "description": "Disable theme discovery and loading"
+        },
+        {
+            "name": [
+                "-nc",
+                "--no-context-files"
+            ],
+            "description": "Disable AGENTS.md and CLAUDE.md discovery and loading"
+        },
+        {
+            "name": "--export",
+            "description": "Export session file to HTML and exit",
+            "args": {
+                "name": "file",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": "--list-models",
+            "description": "List available models (with optional fuzzy search)",
+            "args": {
+                "name": "search",
+                "isOptional": true
+            }
+        },
+        {
+            "name": "--verbose",
+            "description": "Force verbose startup"
+        },
+        {
+            "name": "--tui-mode",
+            "description": "TUI mode",
+            "args": {
+                "name": "mode",
+                "suggestions": [
+                    "fullscreen",
+                    "regular"
+                ]
+            }
+        },
+        {
+            "name": [
+                "-a",
+                "--approve"
+            ],
+            "description": "Trust project-local files for this run"
+        },
+        {
+            "name": [
+                "-na",
+                "--no-approve"
+            ],
+            "description": "Ignore project-local files for this run"
+        },
+        {
+            "name": "--offline",
+            "description": "Disable startup network operations"
+        },
+        {
+            "name": [
+                "-h",
+                "--help"
+            ],
+            "description": "Show help"
+        },
+        {
+            "name": [
+                "-v",
+                "--version"
+            ],
+            "description": "Show version number"
+        }
+    ]
+}
