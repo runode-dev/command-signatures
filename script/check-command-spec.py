@@ -12,6 +12,7 @@
 hidden 的选项和子命令，帮助里没有不算差异。
 """
 
+import functools
 import json
 import re
 import subprocess
@@ -56,6 +57,11 @@ def flags(text):
 
 
 def help_text(command, path):
+    return _help_text(command, tuple(path))
+
+
+@functools.lru_cache(maxsize=None)
+def _help_text(command, path):
     run = subprocess.run([command, *path, "--help"], capture_output=True, text=True, timeout=60)
     # kilo 每次启动先打一行带时间和运行 id 的 INFO 日志，会让两次读到的同一份帮助对不上。
     return "\n".join(line for line in (run.stdout + run.stderr).splitlines() if not line.startswith("INFO ")) + "\n"
