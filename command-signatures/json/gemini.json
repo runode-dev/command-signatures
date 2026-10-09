@@ -1,0 +1,953 @@
+{
+    "name": "gemini",
+    "description": "Google Gemini CLI - AI coding agent for the terminal",
+    "options": [
+        {
+            "name": [
+                "-d",
+                "--debug"
+            ],
+            "description": "Run in debug mode (open debug console with F12)"
+        },
+        {
+            "name": [
+                "-m",
+                "--model"
+            ],
+            "description": "Model",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": [
+                "-p",
+                "--prompt"
+            ],
+            "description": "Run in non-interactive (headless) mode with the given prompt. Appended to input on stdin (if any)",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": [
+                "-i",
+                "--prompt-interactive"
+            ],
+            "description": "Execute the provided prompt and continue in interactive mode",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--skip-trust",
+            "description": "Trust the current workspace for this session"
+        },
+        {
+            "name": [
+                "-w",
+                "--worktree"
+            ],
+            "description": "Start Gemini in a new git worktree. If no name is provided, one is generated automatically",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": [
+                "-s",
+                "--sandbox"
+            ],
+            "description": "Run in sandbox?"
+        },
+        {
+            "name": [
+                "-y",
+                "--yolo"
+            ],
+            "description": "Automatically accept all actions (aka YOLO mode, see https://www.youtube.com/watch?v=xvFZjo5PgG0 for more details)?"
+        },
+        {
+            "name": "--approval-mode",
+            "description": "Set the approval mode: default (prompt for approval), auto_edit (auto-approve edit tools), yolo (auto-approve all tools), plan (read-only mode)",
+            "args": {
+                "name": "value",
+                "suggestions": [
+                    "default",
+                    "auto_edit",
+                    "yolo",
+                    "plan"
+                ]
+            }
+        },
+        {
+            "name": "--policy",
+            "description": "Additional policy files or directories to load (comma-separated or multiple --policy)",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--admin-policy",
+            "description": "Additional admin policy files or directories to load (comma-separated or multiple --admin-policy)",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--acp",
+            "description": "Starts the agent in ACP mode"
+        },
+        {
+            "name": "--experimental-acp",
+            "description": "Starts the agent in ACP mode (deprecated, use --acp instead)"
+        },
+        {
+            "name": "--allowed-mcp-server-names",
+            "description": "Allowed MCP server names",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--allowed-tools",
+            "description": "[DEPRECATED: Use Policy Engine instead See https://geminicli.com/docs/core/policy-engine] Tools that are allowed to run without confirmation",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": [
+                "-e",
+                "--extensions"
+            ],
+            "description": "A list of extensions to use. If not provided, all extensions are used",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": [
+                "-l",
+                "--list-extensions"
+            ],
+            "description": "List all available extensions and exit"
+        },
+        {
+            "name": [
+                "-r",
+                "--resume"
+            ],
+            "description": "Resume a previous session. Use \"latest\" for most recent or index number (e.g. --resume 5)",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--session-file",
+            "description": "Load a session from a JSON file",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--session-id",
+            "description": "Start a new session with a manually provided UUID",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--list-sessions",
+            "description": "List available sessions for the current project and exit"
+        },
+        {
+            "name": "--delete-session",
+            "description": "Delete a session by index number (use --list-sessions to see available sessions)",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--include-directories",
+            "description": "Additional directories to include in the workspace (comma-separated or multiple --include-directories)",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--screen-reader",
+            "description": "Enable screen reader mode for accessibility"
+        },
+        {
+            "name": [
+                "-o",
+                "--output-format"
+            ],
+            "description": "The format of the CLI output",
+            "args": {
+                "name": "value",
+                "suggestions": [
+                    "text",
+                    "json",
+                    "stream-json"
+                ]
+            }
+        },
+        {
+            "name": "--raw-output",
+            "description": "Disable sanitization of model output (e.g. allow ANSI escape sequences). WARNING: This can be a security risk if the model output is untrusted"
+        },
+        {
+            "name": "--accept-raw-output-risk",
+            "description": "Suppress the security warning when using --raw-output"
+        },
+        {
+            "name": [
+                "-v",
+                "--version"
+            ],
+            "description": "Show version number"
+        }
+    ],
+    "subcommands": [
+        {
+            "name": "mcp",
+            "description": "Manage MCP servers",
+            "options": [
+                {
+                    "name": [
+                        "-d",
+                        "--debug"
+                    ],
+                    "description": "Run in debug mode (open debug console with F12)"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "add",
+                    "description": "Add a server",
+                    "args": [
+                        {
+                            "name": "name"
+                        },
+                        {
+                            "name": "commandOrUrl"
+                        },
+                        {
+                            "name": "args...",
+                            "isOptional": true
+                        }
+                    ],
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--scope"
+                            ],
+                            "description": "Configuration scope (user or project)",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "user",
+                                    "project"
+                                ]
+                            }
+                        },
+                        {
+                            "name": [
+                                "-t",
+                                "--transport",
+                                "--type"
+                            ],
+                            "description": "Transport type (stdio, sse, http)",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "stdio",
+                                    "sse",
+                                    "http"
+                                ]
+                            }
+                        },
+                        {
+                            "name": [
+                                "-e",
+                                "--env"
+                            ],
+                            "description": "Set environment variables (e.g. -e KEY=value)",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-H",
+                                "--header"
+                            ],
+                            "description": "Set HTTP headers for SSE and HTTP transports (e.g. -H \"X-Api-Key: abc123\" -H \"Authorization: Bearer abc123\")",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--timeout",
+                            "description": "Set connection timeout in milliseconds",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--trust",
+                            "description": "Trust the server (bypass all tool call confirmation prompts)"
+                        },
+                        {
+                            "name": "--description",
+                            "description": "Set the description for the server",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--include-tools",
+                            "description": "A comma-separated list of tools to include",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--exclude-tools",
+                            "description": "A comma-separated list of tools to exclude",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "remove",
+                    "description": "Remove a server",
+                    "args": {
+                        "name": "name"
+                    },
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--scope"
+                            ],
+                            "description": "Configuration scope (user or project)",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "user",
+                                    "project"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "list",
+                    "description": "List all configured MCP servers",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        }
+                    ]
+                },
+                {
+                    "name": "enable",
+                    "description": "Enable an MCP server",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--session",
+                            "description": "Clear session-only disable"
+                        }
+                    ]
+                },
+                {
+                    "name": "disable",
+                    "description": "Disable an MCP server",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--session",
+                            "description": "Disable for current session only"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": [
+                "extensions",
+                "extension"
+            ],
+            "description": "Manage Gemini CLI extensions",
+            "options": [
+                {
+                    "name": [
+                        "-d",
+                        "--debug"
+                    ],
+                    "description": "Run in debug mode (open debug console with F12)"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "install",
+                    "description": "Installs an extension from a git repository URL or a local path",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--ref",
+                            "description": "The git ref to install from",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--auto-update",
+                            "description": "Enable auto-update for this extension"
+                        },
+                        {
+                            "name": "--pre-release",
+                            "description": "Enable pre-release versions for this extension"
+                        },
+                        {
+                            "name": "--consent",
+                            "description": "Acknowledge the security risks of installing an extension and skip the confirmation prompt"
+                        },
+                        {
+                            "name": "--skip-settings",
+                            "description": "Skip the configuration on install process"
+                        }
+                    ]
+                },
+                {
+                    "name": "uninstall",
+                    "description": "Uninstalls one or more extensions",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--all",
+                            "description": "Uninstall all installed extensions"
+                        }
+                    ]
+                },
+                {
+                    "name": "list",
+                    "description": "Lists installed extensions",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": [
+                                "-o",
+                                "--output-format"
+                            ],
+                            "description": "The format of the CLI output",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "text",
+                                    "json"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "update",
+                    "description": "Updates all extensions or a named extension to the latest version",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--all",
+                            "description": "Update all extensions"
+                        }
+                    ]
+                },
+                {
+                    "name": "disable",
+                    "description": "Disables an extension",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--scope",
+                            "description": "The scope to disable the extension in",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "enable",
+                    "description": "Enables an extension",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--scope",
+                            "description": "The scope to enable the extension in. If not set, will be enabled in all scopes",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "link",
+                    "description": "Links an extension from a local path. Updates made to the local path will always be reflected",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--consent",
+                            "description": "Acknowledge the security risks of installing an extension and skip the confirmation prompt"
+                        }
+                    ]
+                },
+                {
+                    "name": "new",
+                    "description": "Create a new extension from a boilerplate example",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        }
+                    ]
+                },
+                {
+                    "name": "validate",
+                    "description": "Validates an extension from a local path",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        }
+                    ]
+                },
+                {
+                    "name": "config",
+                    "description": "Configure extension settings",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--scope",
+                            "description": "The scope to set the setting in",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "user",
+                                    "workspace"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": [
+                "skills",
+                "skill"
+            ],
+            "description": "Manage agent skills",
+            "options": [
+                {
+                    "name": [
+                        "-d",
+                        "--debug"
+                    ],
+                    "description": "Run in debug mode (open debug console with F12)"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "list",
+                    "description": "Lists discovered agent skills",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--all",
+                            "description": "Show all skills, including built-in ones"
+                        }
+                    ]
+                },
+                {
+                    "name": "enable",
+                    "description": "Enables an agent skill",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        }
+                    ]
+                },
+                {
+                    "name": "disable",
+                    "description": "Disables an agent skill",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--scope"
+                            ],
+                            "description": "The scope to disable the skill in (user or workspace)",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "user",
+                                    "workspace"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "install",
+                    "description": "Installs an agent skill from a git repository URL or a local path",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--scope",
+                            "description": "The scope to install the skill into. Defaults to \"user\" (global)"
+                        },
+                        {
+                            "name": "--path",
+                            "description": "Sub-path within the repository to install from (only used for git repository sources)",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--consent",
+                            "description": "Acknowledge the security risks of installing a skill and skip the confirmation prompt"
+                        }
+                    ]
+                },
+                {
+                    "name": "link",
+                    "description": "Links an agent skill from a local path. Updates to the source will be reflected immediately",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--scope",
+                            "description": "The scope to link the skill into. Defaults to \"user\" (global)"
+                        },
+                        {
+                            "name": "--consent",
+                            "description": "Acknowledge the security risks of linking a skill and skip the confirmation prompt"
+                        }
+                    ]
+                },
+                {
+                    "name": "uninstall",
+                    "description": "Uninstalls an agent skill by name",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--scope",
+                            "description": "The scope to uninstall the skill from. Defaults to \"user\" (global)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": [
+                "hooks",
+                "hook"
+            ],
+            "description": "Manage Gemini CLI hooks",
+            "options": [
+                {
+                    "name": [
+                        "-d",
+                        "--debug"
+                    ],
+                    "description": "Run in debug mode (open debug console with F12)"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "migrate",
+                    "description": "Migrate hooks from Claude Code to Gemini CLI",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--from-claude",
+                            "description": "Migrate from Claude Code hooks"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "gemma",
+            "description": "Manage local Gemma model routing",
+            "options": [
+                {
+                    "name": [
+                        "-d",
+                        "--debug"
+                    ],
+                    "description": "Run in debug mode (open debug console with F12)"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "setup",
+                    "description": "Download and configure Gemma local model routing",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--port",
+                            "description": "Port for the LiteRT server",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--skip-model",
+                            "description": "Skip model download (binary only)"
+                        },
+                        {
+                            "name": "--start",
+                            "description": "Start the server after setup"
+                        },
+                        {
+                            "name": "--force",
+                            "description": "Re-download binary and model even if already present"
+                        },
+                        {
+                            "name": "--consent",
+                            "description": "Skip interactive consent prompt (implies acceptance)"
+                        }
+                    ]
+                },
+                {
+                    "name": "start",
+                    "description": "Start the LiteRT-LM server",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--port",
+                            "description": "Port for the LiteRT server",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "stop",
+                    "description": "Stop the LiteRT-LM server",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--port",
+                            "description": "Port where the LiteRT server is running",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "status",
+                    "description": "Check Gemma local model routing status",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": "--port",
+                            "description": "Port to check for the LiteRT server",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "logs",
+                    "description": "View LiteRT-LM server logs",
+                    "options": [
+                        {
+                            "name": [
+                                "-d",
+                                "--debug"
+                            ],
+                            "description": "Run in debug mode (open debug console with F12)"
+                        },
+                        {
+                            "name": [
+                                "-n",
+                                "--lines"
+                            ],
+                            "description": "Show the last N lines and exit (omit to follow live)",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-f",
+                                "--follow"
+                            ],
+                            "description": "Follow log output (defaults to true when --lines is omitted)"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

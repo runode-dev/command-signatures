@@ -57,7 +57,8 @@ def flags(text):
 
 def help_text(command, path):
     run = subprocess.run([command, *path, "--help"], capture_output=True, text=True, timeout=60)
-    return run.stdout + run.stderr
+    # kilo 每次启动先打一行带时间和运行 id 的 INFO 日志，会让两次读到的同一份帮助对不上。
+    return "\n".join(line for line in (run.stdout + run.stderr).splitlines() if not line.startswith("INFO ")) + "\n"
 
 
 def help_options(text):

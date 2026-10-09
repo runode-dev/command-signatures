@@ -1,0 +1,3994 @@
+{
+    "name": "kilo",
+    "description": "Kilo Code CLI - AI coding agent for the terminal",
+    "options": [
+        {
+            "name": [
+                "-v",
+                "--version"
+            ],
+            "description": "show version number"
+        },
+        {
+            "name": "--print-logs",
+            "description": "print logs to stderr"
+        },
+        {
+            "name": "--log-level",
+            "description": "log level",
+            "args": {
+                "name": "value",
+                "suggestions": [
+                    "DEBUG",
+                    "INFO",
+                    "WARN",
+                    "ERROR"
+                ]
+            }
+        },
+        {
+            "name": "--pure",
+            "description": "run without external plugins"
+        },
+        {
+            "name": "--port",
+            "description": "port to listen on",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--hostname",
+            "description": "hostname to listen on",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--mdns",
+            "description": "enable mDNS service discovery (defaults hostname to 0.0.0.0)"
+        },
+        {
+            "name": "--mdns-domain",
+            "description": "custom domain name for mDNS service (default: kilo.local)",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--cors",
+            "description": "additional domains to allow for CORS]",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": [
+                "-m",
+                "--model"
+            ],
+            "description": "model to use in the format of provider/model",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": [
+                "-c",
+                "--continue"
+            ],
+            "description": "continue the last session"
+        },
+        {
+            "name": [
+                "-s",
+                "--session"
+            ],
+            "description": "session id to continue",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--fork",
+            "description": "fork the session when continuing (use with --continue or --session)"
+        },
+        {
+            "name": "--cloud-fork",
+            "description": "fetch session from cloud and continue locally (use with --session)"
+        },
+        {
+            "name": "--worktree",
+            "description": "create (or reuse) a git worktree with this name and start kilo there",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--prompt",
+            "description": "prompt to use",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--agent",
+            "description": "agent to use",
+            "args": {
+                "name": "value"
+            }
+        },
+        {
+            "name": "--auto",
+            "description": "auto-approve permissions that are not explicitly denied (dangerous!)"
+        },
+        {
+            "name": "--mini",
+            "description": "start the minimal interactive interface"
+        },
+        {
+            "name": "--no-replay",
+            "description": "disable mini session history replay on resume and after resize"
+        },
+        {
+            "name": "--replay-limit",
+            "description": "cap visible mini replay to the newest N messages",
+            "args": {
+                "name": "value"
+            }
+        }
+    ],
+    "subcommands": [
+        {
+            "name": "completion",
+            "description": "generate shell completion script"
+        },
+        {
+            "name": "acp",
+            "description": "start ACP (Agent Client Protocol) server",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--port",
+                    "description": "port to listen on",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--hostname",
+                    "description": "hostname to listen on",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--mdns",
+                    "description": "enable mDNS service discovery (defaults hostname to 0.0.0.0)"
+                },
+                {
+                    "name": "--mdns-domain",
+                    "description": "custom domain name for mDNS service (default: kilo.local)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--cors",
+                    "description": "additional domains to allow for CORS]",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--cwd",
+                    "description": "working directory",
+                    "args": {
+                        "name": "value"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "mcp",
+            "description": "manage MCP (Model Context Protocol) servers",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "add",
+                    "description": "add an MCP server",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--url",
+                            "description": "URL for a remote MCP server",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--env",
+                            "description": "environment variable for a local MCP server (KEY=VALUE)",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--header",
+                            "description": "HTTP header for a remote MCP server (KEY=VALUE)",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": [
+                        "list",
+                        "ls"
+                    ],
+                    "description": "list MCP servers and their status",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "auth",
+                    "description": "authenticate with an OAuth-enabled MCP server",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ],
+                    "subcommands": [
+                        {
+                            "name": [
+                                "list",
+                                "ls"
+                            ],
+                            "description": "list OAuth-capable MCP servers and their auth status",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "logout",
+                    "description": "remove OAuth credentials for an MCP server",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "debug",
+                    "description": "debug OAuth connection for an MCP server",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "attach",
+            "description": "attach to a running kilo server",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--dir",
+                    "description": "directory to run in",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": [
+                        "-c",
+                        "--continue"
+                    ],
+                    "description": "continue the last session"
+                },
+                {
+                    "name": [
+                        "-s",
+                        "--session"
+                    ],
+                    "description": "session id to continue",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--fork",
+                    "description": "fork the session when continuing (use with --continue or --session)"
+                },
+                {
+                    "name": "--cloud-fork",
+                    "description": "fetch session from cloud and continue locally (use with --session)"
+                },
+                {
+                    "name": [
+                        "-p",
+                        "--password"
+                    ],
+                    "description": "basic auth password (defaults to KILO_SERVER_PASSWORD)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": [
+                        "-u",
+                        "--username"
+                    ],
+                    "description": "basic auth username (defaults to KILO_SERVER_USERNAME or 'kilo')",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--mini",
+                    "description": "start the minimal interactive interface"
+                },
+                {
+                    "name": "--no-replay",
+                    "description": "disable mini session history replay on resume and after resize"
+                },
+                {
+                    "name": "--replay-limit",
+                    "description": "cap visible mini replay to the newest N messages",
+                    "args": {
+                        "name": "value"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "run",
+            "description": "run kilo with a message",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--command",
+                    "description": "the command to run, use message for args",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": [
+                        "-c",
+                        "--continue"
+                    ],
+                    "description": "continue the last session"
+                },
+                {
+                    "name": [
+                        "-s",
+                        "--session"
+                    ],
+                    "description": "session id to continue",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--fork",
+                    "description": "fork the session before continuing (requires --continue or --session)"
+                },
+                {
+                    "name": "--cloud-fork",
+                    "description": "fetch session from cloud and continue locally (use with --session)"
+                },
+                {
+                    "name": "--share",
+                    "description": "share the session"
+                },
+                {
+                    "name": [
+                        "-m",
+                        "--model"
+                    ],
+                    "description": "model to use in the format of provider/model",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--agent",
+                    "description": "agent to use",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--format",
+                    "description": "format: default (formatted) or json (raw JSON events)",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "default",
+                            "json"
+                        ]
+                    }
+                },
+                {
+                    "name": [
+                        "-f",
+                        "--file"
+                    ],
+                    "description": "file(s) to attach to message",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--title",
+                    "description": "title for the session (uses truncated prompt if no value provided)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--attach",
+                    "description": "attach to a running kilo server (e.g., http://localhost:4096)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": [
+                        "-p",
+                        "--password"
+                    ],
+                    "description": "basic auth password (defaults to KILO_SERVER_PASSWORD)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": [
+                        "-u",
+                        "--username"
+                    ],
+                    "description": "basic auth username (defaults to KILO_SERVER_USERNAME or 'kilo')",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--dir",
+                    "description": "directory to run in, path on remote server if attaching",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--port",
+                    "description": "port for the local server (defaults to random port if no value provided)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--variant",
+                    "description": "model variant (provider-specific reasoning effort, e.g., high, max, minimal)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--thinking",
+                    "description": "show thinking blocks"
+                },
+                {
+                    "name": [
+                        "-i",
+                        "--interactive"
+                    ],
+                    "description": "run in direct interactive split-footer mode"
+                },
+                {
+                    "name": "--auto",
+                    "description": "auto-approve permissions that are not explicitly denied (dangerous!)"
+                }
+            ]
+        },
+        {
+            "name": "debug",
+            "description": "debugging and troubleshooting tools",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "config",
+                    "description": "show resolved configuration",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "lsp",
+                    "description": "LSP debugging utilities",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ],
+                    "subcommands": [
+                        {
+                            "name": "diagnostics",
+                            "description": "get diagnostics for a file",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "symbols",
+                            "description": "search workspace symbols",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "document-symbols",
+                            "description": "get symbols from a document",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "rg",
+                    "description": "ripgrep debugging utilities",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ],
+                    "subcommands": [
+                        {
+                            "name": "files",
+                            "description": "list files using ripgrep",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                },
+                                {
+                                    "name": "--query",
+                                    "description": "Filter files by query",
+                                    "args": {
+                                        "name": "value"
+                                    }
+                                },
+                                {
+                                    "name": "--glob",
+                                    "description": "Glob pattern to match files",
+                                    "args": {
+                                        "name": "value"
+                                    }
+                                },
+                                {
+                                    "name": "--limit",
+                                    "description": "Limit number of results",
+                                    "args": {
+                                        "name": "value"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "search",
+                            "description": "search file contents using ripgrep",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                },
+                                {
+                                    "name": "--glob",
+                                    "description": "File glob patterns",
+                                    "args": {
+                                        "name": "value"
+                                    }
+                                },
+                                {
+                                    "name": "--limit",
+                                    "description": "Limit number of results",
+                                    "args": {
+                                        "name": "value"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "file",
+                    "description": "file system debugging utilities",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ],
+                    "subcommands": [
+                        {
+                            "name": "read",
+                            "description": "read file contents as JSON",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "list",
+                            "description": "list files in a directory",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "search",
+                            "description": "search files by query",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "scrap",
+                    "description": "list all known projects",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "skill",
+                    "description": "list all available skills",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "snapshot",
+                    "description": "snapshot debugging utilities",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ],
+                    "subcommands": [
+                        {
+                            "name": "track",
+                            "description": "track current snapshot state",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "patch",
+                            "description": "show patch for a snapshot hash",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "diff",
+                            "description": "show diff for a snapshot hash",
+                            "options": [
+                                {
+                                    "name": [
+                                        "-v",
+                                        "--version"
+                                    ],
+                                    "description": "show version number"
+                                },
+                                {
+                                    "name": "--print-logs",
+                                    "description": "print logs to stderr"
+                                },
+                                {
+                                    "name": "--log-level",
+                                    "description": "log level",
+                                    "args": {
+                                        "name": "value",
+                                        "suggestions": [
+                                            "DEBUG",
+                                            "INFO",
+                                            "WARN",
+                                            "ERROR"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "--pure",
+                                    "description": "run without external plugins"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "startup",
+                    "description": "print startup timing",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "agent",
+                    "description": "show agent configuration details",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--tool",
+                            "description": "Tool id to execute",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--params",
+                            "description": "Tool params as JSON or a JS object literal",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "v2",
+                    "description": "debug v2 catalog and built-in plugins",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "info",
+                    "description": "show debug information",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "paths",
+                    "description": "show global paths (data, config, cache, state)",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "wait",
+                    "description": "wait indefinitely (for debugging)",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": [
+                "auth",
+                "providers"
+            ],
+            "description": "manage AI providers and credentials",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": [
+                        "list",
+                        "ls"
+                    ],
+                    "description": "list providers and credentials",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "login",
+                    "description": "log in to a provider",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": [
+                                "-p",
+                                "--provider"
+                            ],
+                            "description": "provider id or name to log in to (skips provider selection)",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-m",
+                                "--method"
+                            ],
+                            "description": "login method label (skips method selection)",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "logout",
+                    "description": "log out from a configured provider",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "agent",
+            "description": "manage agents",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "create",
+                    "description": "create a new agent",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--path",
+                            "description": "directory path to generate the agent file",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--description",
+                            "description": "what the agent should do",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--mode",
+                            "description": "agent mode",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "all",
+                                    "primary",
+                                    "subagent"
+                                ]
+                            }
+                        },
+                        {
+                            "name": [
+                                "--permissions",
+                                "--tools"
+                            ],
+                            "description": "comma-separated list of permissions to allow (default: all). Available: \"bash, read, edit, glob, grep, webfetch, task, todowrite, websearch, lsp, skill\"",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-m",
+                                "--model"
+                            ],
+                            "description": "model to use in the format of provider/model",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "list",
+                    "description": "list all available agents",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "upgrade",
+            "description": "upgrade kilo to the latest or a specific version",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": [
+                        "-m",
+                        "--method"
+                    ],
+                    "description": "installation method to use",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "curl",
+                            "npm",
+                            "yarn",
+                            "pnpm",
+                            "bun",
+                            "brew",
+                            "choco",
+                            "scoop"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "uninstall",
+            "description": "uninstall kilo and remove all related files",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": [
+                        "-c",
+                        "--keep-config"
+                    ],
+                    "description": "keep configuration files"
+                },
+                {
+                    "name": [
+                        "-d",
+                        "--keep-data"
+                    ],
+                    "description": "keep session data and snapshots"
+                },
+                {
+                    "name": "--dry-run",
+                    "description": "show what would be removed without removing"
+                },
+                {
+                    "name": [
+                        "-f",
+                        "--force"
+                    ],
+                    "description": "skip confirmation prompts"
+                }
+            ]
+        },
+        {
+            "name": "serve",
+            "description": "starts a headless kilo server",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--port",
+                    "description": "port to listen on",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--hostname",
+                    "description": "hostname to listen on",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--mdns",
+                    "description": "enable mDNS service discovery (defaults hostname to 0.0.0.0)"
+                },
+                {
+                    "name": "--mdns-domain",
+                    "description": "custom domain name for mDNS service (default: kilo.local)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--cors",
+                    "description": "additional domains to allow for CORS]",
+                    "args": {
+                        "name": "value"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "models",
+            "description": "list all available models",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--verbose",
+                    "description": "use more verbose model output (includes metadata like costs)"
+                },
+                {
+                    "name": "--refresh",
+                    "description": "refresh the models cache from models.dev"
+                }
+            ]
+        },
+        {
+            "name": "stats",
+            "description": "show token usage and cost statistics",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--days",
+                    "description": "show stats for the last N days (default: all time)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--tools",
+                    "description": "number of tools to show (default: all)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--models",
+                    "description": "show model statistics (default: hidden). Pass a number to show top N, otherwise shows all"
+                },
+                {
+                    "name": "--project",
+                    "description": "filter by project (default: all projects, empty string: current project)",
+                    "args": {
+                        "name": "value"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "export",
+            "description": "export session data as JSON",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--sanitize",
+                    "description": "redact sensitive transcript and file data"
+                }
+            ]
+        },
+        {
+            "name": "import",
+            "description": "import session data from JSON file or URL",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ]
+        },
+        {
+            "name": "github",
+            "description": "manage GitHub agent",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "install",
+                    "description": "install the GitHub agent",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "run",
+                    "description": "run the GitHub agent",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--event",
+                            "description": "GitHub mock event to run the agent for",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--token",
+                            "description": "GitHub personal access token (github_pat_********)",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "pr",
+            "description": "manage pull requests",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "checkout",
+                    "description": "fetch and checkout a GitHub PR branch, then run kilo",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "link",
+                    "description": "link a session to a pull request",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--session"
+                            ],
+                            "description": "session id to apply the PR link to",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "unlink",
+                    "description": "clear a session's linked pull request",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--session"
+                            ],
+                            "description": "session id to apply the PR link to",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "status",
+                    "description": "show a session's linked pull request",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--session"
+                            ],
+                            "description": "session id to apply the PR link to",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "session",
+            "description": "manage sessions",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "list",
+                    "description": "list sessions",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": [
+                                "-n",
+                                "--max-count"
+                            ],
+                            "description": "limit to N most recent sessions",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--format",
+                            "description": "output format",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "table",
+                                    "json"
+                                ]
+                            }
+                        },
+                        {
+                            "name": [
+                                "-a",
+                                "--all"
+                            ],
+                            "description": "list sessions from all projects"
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--search"
+                            ],
+                            "description": "filter sessions by title",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "delete",
+                    "description": "delete a session",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": [
+                "plugin",
+                "plug"
+            ],
+            "description": "install plugin and update config",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": [
+                        "-g",
+                        "--global"
+                    ],
+                    "description": "install in global config"
+                },
+                {
+                    "name": [
+                        "-f",
+                        "--force"
+                    ],
+                    "description": "replace existing plugin version"
+                }
+            ]
+        },
+        {
+            "name": "db",
+            "description": "database tools",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--format",
+                    "description": "Output format",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "json",
+                            "tsv"
+                        ]
+                    }
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "path",
+                    "description": "print the database path",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "console",
+            "description": "open or stop the local Kilo Console (deprecated)",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--port",
+                    "description": "port to listen on",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--hostname",
+                    "description": "hostname to listen on",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--mdns",
+                    "description": "enable mDNS service discovery (defaults hostname to 0.0.0.0)"
+                },
+                {
+                    "name": "--mdns-domain",
+                    "description": "custom domain name for mDNS service (default: kilo.local)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--cors",
+                    "description": "additional domains to allow for CORS]",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": [
+                        "-f",
+                        "--foreground"
+                    ],
+                    "description": "keep the command active until interrupted"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "stop",
+                    "description": "stop the local kilo daemon",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--json",
+                            "description": "print daemon details as JSON"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "cloud",
+            "description": "run Cloud Agent tasks",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "start",
+                    "description": "start a Cloud Agent task",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--prompt",
+                            "description": "prompt for the Cloud Agent",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--prompt-stdin",
+                            "description": "read the prompt from standard input"
+                        },
+                        {
+                            "name": "--repo",
+                            "description": "repository shorthand or URL",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--repo-type",
+                            "description": "repository provider type",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "github",
+                                    "gitlab",
+                                    "git"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--branch",
+                            "description": "repository branch",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--model",
+                            "description": "Cloud Agent model",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--mode",
+                            "description": "Cloud Agent mode",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--org-id",
+                            "description": "Kilo organization ID",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--stream",
+                            "description": "connect to the WebSocket stream and print events as JSONL"
+                        }
+                    ]
+                },
+                {
+                    "name": "send",
+                    "description": "send a follow-up prompt to a Cloud Agent task",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--prompt",
+                            "description": "prompt for the Cloud Agent",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--prompt-stdin",
+                            "description": "read the prompt from standard input"
+                        },
+                        {
+                            "name": "--session-id",
+                            "description": "Cloud Agent session ID",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "status",
+                    "description": "show Cloud Agent task status",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--session-id",
+                            "description": "Cloud Agent session ID",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--message-id",
+                            "description": "Cloud Agent message ID",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "result",
+                    "description": "show a Cloud Agent task result",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--session-id",
+                            "description": "Cloud Agent session ID",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--message-id",
+                            "description": "Cloud Agent message ID",
+                            "args": {
+                                "name": "value"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "roll-call",
+            "description": "batch-test text models matching a filter for connectivity and latency",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--prompt",
+                    "description": "Prompt to send to each model",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--timeout",
+                    "description": "Timeout for each model call in milliseconds",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--parallel",
+                    "description": "Number of parallel model calls",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--verbose",
+                    "description": "Show verbose output"
+                },
+                {
+                    "name": "--quiet",
+                    "description": "Suppress progress and decoration"
+                },
+                {
+                    "name": "--output",
+                    "description": "Output format (table, json, or md)",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "table",
+                            "json",
+                            "md"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "profile",
+            "description": "show Kilo account profile",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--json",
+                    "description": "output profile as JSON"
+                }
+            ]
+        },
+        {
+            "name": "remote",
+            "description": "enable remote connection for real-time session relay",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ]
+        },
+        {
+            "name": "daemon",
+            "description": "manage the local kilo daemon",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                },
+                {
+                    "name": "--port",
+                    "description": "port to listen on",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--hostname",
+                    "description": "hostname to listen on",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--mdns",
+                    "description": "enable mDNS service discovery (defaults hostname to 0.0.0.0)"
+                },
+                {
+                    "name": "--mdns-domain",
+                    "description": "custom domain name for mDNS service (default: kilo.local)",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--cors",
+                    "description": "additional domains to allow for CORS]",
+                    "args": {
+                        "name": "value"
+                    }
+                },
+                {
+                    "name": "--json",
+                    "description": "print daemon details as JSON"
+                },
+                {
+                    "name": [
+                        "-f",
+                        "--foreground"
+                    ],
+                    "description": "keep the command active until interrupted"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "start",
+                    "description": "start the local kilo daemon",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--port",
+                            "description": "port to listen on",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--hostname",
+                            "description": "hostname to listen on",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--mdns",
+                            "description": "enable mDNS service discovery (defaults hostname to 0.0.0.0)"
+                        },
+                        {
+                            "name": "--mdns-domain",
+                            "description": "custom domain name for mDNS service (default: kilo.local)",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--cors",
+                            "description": "additional domains to allow for CORS]",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--json",
+                            "description": "print daemon details as JSON"
+                        },
+                        {
+                            "name": [
+                                "-f",
+                                "--foreground"
+                            ],
+                            "description": "keep the command active until interrupted"
+                        }
+                    ]
+                },
+                {
+                    "name": "status",
+                    "description": "show local kilo daemon status",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--json",
+                            "description": "print daemon details as JSON"
+                        }
+                    ]
+                },
+                {
+                    "name": "stop",
+                    "description": "stop the local kilo daemon",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--json",
+                            "description": "print daemon details as JSON"
+                        }
+                    ]
+                },
+                {
+                    "name": "restart",
+                    "description": "restart the local kilo daemon",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        },
+                        {
+                            "name": "--port",
+                            "description": "port to listen on",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--hostname",
+                            "description": "hostname to listen on",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--mdns",
+                            "description": "enable mDNS service discovery (defaults hostname to 0.0.0.0)"
+                        },
+                        {
+                            "name": "--mdns-domain",
+                            "description": "custom domain name for mDNS service (default: kilo.local)",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--cors",
+                            "description": "additional domains to allow for CORS]",
+                            "args": {
+                                "name": "value"
+                            }
+                        },
+                        {
+                            "name": "--json",
+                            "description": "print daemon details as JSON"
+                        },
+                        {
+                            "name": [
+                                "-f",
+                                "--foreground"
+                            ],
+                            "description": "keep the command active until interrupted"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "config",
+            "description": "configuration tools",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "check",
+                    "description": "check configuration for warnings and errors",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "worktree",
+            "description": "manage git worktrees",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--version"
+                    ],
+                    "description": "show version number"
+                },
+                {
+                    "name": "--print-logs",
+                    "description": "print logs to stderr"
+                },
+                {
+                    "name": "--log-level",
+                    "description": "log level",
+                    "args": {
+                        "name": "value",
+                        "suggestions": [
+                            "DEBUG",
+                            "INFO",
+                            "WARN",
+                            "ERROR"
+                        ]
+                    }
+                },
+                {
+                    "name": "--pure",
+                    "description": "run without external plugins"
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "create",
+                    "description": "create (or reuse) a git worktree by name",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "list",
+                    "description": "list git worktrees for the current project",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                },
+                {
+                    "name": "remove",
+                    "description": "remove a git worktree by name, deleting its branch too",
+                    "options": [
+                        {
+                            "name": [
+                                "-v",
+                                "--version"
+                            ],
+                            "description": "show version number"
+                        },
+                        {
+                            "name": "--print-logs",
+                            "description": "print logs to stderr"
+                        },
+                        {
+                            "name": "--log-level",
+                            "description": "log level",
+                            "args": {
+                                "name": "value",
+                                "suggestions": [
+                                    "DEBUG",
+                                    "INFO",
+                                    "WARN",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "--pure",
+                            "description": "run without external plugins"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

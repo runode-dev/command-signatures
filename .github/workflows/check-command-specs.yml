@@ -1,8 +1,11 @@
-# 每周装一次清单里各命令的最新版，拿它们的 --help 核对 command-signatures/json 里的规格。
-# 一个命令对不上时开一个 issue 列出差异，已经开着的就改它的标题和正文；对得上时关掉开着的
-# 那个。pi.json 是这个 fork 自己加的，差异直接在这里改；claude、codex 的规格是上游维护的，
-# 差异给上游 warpdotdev/command-signatures 提 PR，免得每周合并上游时冲突。
-# 加命令：在 matrix 里加一项，先在本地跑一遍脚本，看它的帮助能不能读对。
+# 每周装一次清单里各命令的最新版，拿它们的 --help 核对 command-signatures/json 里的规格：
+# 对不上先让 script/sync-command-spec.py 改规格（补上新选项和子命令、删掉没了的），格式化、
+# 跑 cargo test，通过了直接提交推到 main。改完还对不上（脚本读不出来的写法）才开一个 issue 列
+# 出差异，已经开着的就改它的标题和正文；对得上时关掉开着的那个。
+# 脚本补进去的描述和参数是从帮助里解析的，没人逐条看过；要改写的直接改规格推 main，下一周脚本
+# 不会动已有的条目。
+# 加命令：在 matrix 里加一项，先在本地跑一遍 sync-command-spec.py 和 check-command-spec.py，
+# 看它的帮助能不能读对。
 name: 核对命令规格
 
 on:
@@ -11,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   issues: write
 
 jobs:
@@ -19,7 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      # 几个 job 同时查找、开 issue 时互不相干：每个只认自己命令名开头的标题。
+      # 一个一个来：每个都可能往 main 推提交，同时推会互相挡。
+      max-parallel: 1
       matrix:
         include:
           - command: pi
@@ -28,6 +32,18 @@ jobs:
             package: '@anthropic-ai/claude-code'
           - command: codex
             package: '@openai/codex'
+          - command: gemini
+            package: '@google/gemini-cli'
+          - command: opencode
+            package: 'opencode-ai'
+          - command: qwen
+            package: '@qwen-code/qwen-code'
+          - command: amp
+            package: '@sourcegraph/amp'
+          - command: cline
+            package: 'cline'
+          - command: kilo
+            package: '@kilocode/cli'
     env:
       GH_TOKEN: ${{ github.token }}
       COMMAND: ${{ matrix.command }}
@@ -37,11 +53,36 @@ jobs:
       DISABLE_AUTOUPDATER: '1'
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
       - name: 装最新版
         run: npm install --global "${{ matrix.package }}@latest"
+      - name: 按帮助改规格，通过测试就推到 main
+        run: |
+          version=$("$COMMAND" --version | head -n 1)
+          spec="command-signatures/json/$COMMAND.json"
+          python3 script/sync-command-spec.py "$spec" "$COMMAND" | tee "$RUNNER_TEMP/changes.txt"
+          # 脚本写回的 JSON 和 prettier 的排版有细微出入，先格式化再看有没有真改。
+          npm ci
+          npx prettier --write "$spec"
+          if git diff --quiet -- "$spec"; then
+            echo "$COMMAND $version 的规格不用改。"
+            exit 0
+          fi
+          cargo test
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$spec"
+          git commit -m "按 $COMMAND $version 的 --help 改 $COMMAND.json 的选项和子命令"
+          # 前面几个命令的 job 刚推过时，先接上它们的提交再推。
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1
       - name: 核对，开或关 issue
         run: |
           version=$("$COMMAND" --version | head -n 1)
@@ -59,11 +100,11 @@ jobs:
           [ -s "$RUNNER_TEMP/report.md" ] || exit 1
           title="$TITLE_PREFIX $version 的帮助对不上"
           {
-            echo "最新的 $COMMAND（\`$version\`）的 \`--help\` 和 \`$spec\` 有这些差异："
+            echo "最新的 $COMMAND（\`$version\`）的 \`--help\` 和 \`$spec\` 有这些差异，\`script/sync-command-spec.py\` 改不平："
             echo
             cat "$RUNNER_TEMP/report.md"
             echo
-            echo "本地核对：\`python3 script/check-command-spec.py $spec $COMMAND\`。fork 自己加的规格改好推到 main，runode 那边每周的「更新命令规格」会挪子模块指针；上游维护的规格给 warpdotdev/command-signatures 提 PR。"
+            echo "本地核对：\`python3 script/check-command-spec.py $spec $COMMAND\`。改好推到 main，runode 那边每周的「更新命令规格」会挪子模块指针。"
           } > "$RUNNER_TEMP/body.md"
           cat "$RUNNER_TEMP/body.md"
           if [ -n "$existing" ]; then

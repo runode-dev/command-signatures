@@ -1,0 +1,885 @@
+{
+    "name": "cline",
+    "description": "Cline CLI - AI coding agent for the terminal",
+    "options": [
+        {
+            "name": [
+                "-V",
+                "--version"
+            ],
+            "description": "Output the version number"
+        },
+        {
+            "name": [
+                "-p",
+                "--plan"
+            ],
+            "description": "Run in plan mode"
+        },
+        {
+            "name": [
+                "-y",
+                "--yolo"
+            ],
+            "description": "Auto-approve a limited tool set for unsupervised runs (benchmarks, CI). DANGEROUS: use only in sandboxed environments"
+        },
+        {
+            "name": "--json",
+            "description": "Output messages as JSON instead of styled text"
+        },
+        {
+            "name": "--auto-approve",
+            "description": "Set tool auto-approval for all tools (default: true)",
+            "args": {
+                "name": "boolean"
+            }
+        },
+        {
+            "name": [
+                "-c",
+                "--cwd"
+            ],
+            "description": "Working directory",
+            "args": {
+                "name": "path",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": "--thinking",
+            "description": "Set reasoning effort: none|low|medium|high|xhigh. Bare --thinking uses medium; omitted uses the level last chosen with /model, or the provider default",
+            "args": {
+                "name": "level"
+            }
+        },
+        {
+            "name": "--compaction",
+            "description": "Context compaction mode: agentic|basic|off (default: agentic)",
+            "args": {
+                "name": "mode"
+            }
+        },
+        {
+            "name": [
+                "-i",
+                "--tui"
+            ],
+            "description": "Open the terminal user interface (TUI) for interactive sessions"
+        },
+        {
+            "name": "--id",
+            "description": "Resume an existing session by ID",
+            "args": {
+                "name": "session-id"
+            }
+        },
+        {
+            "name": [
+                "-P",
+                "--provider"
+            ],
+            "description": "Provider id (default: cline)",
+            "args": {
+                "name": "id"
+            }
+        },
+        {
+            "name": [
+                "-k",
+                "--key"
+            ],
+            "description": "API key for this run, also saved as the provider's key",
+            "args": {
+                "name": "api-key"
+            }
+        },
+        {
+            "name": [
+                "-m",
+                "--model"
+            ],
+            "description": "Model to use for the session with the selected provider",
+            "args": {
+                "name": "model-id"
+            }
+        },
+        {
+            "name": [
+                "-s",
+                "--system"
+            ],
+            "description": "Override the default system prompt",
+            "args": {
+                "name": "system-prompt"
+            }
+        },
+        {
+            "name": [
+                "-z",
+                "--zen"
+            ],
+            "description": "Start a session that runs in the background hub"
+        },
+        {
+            "name": "--retries",
+            "description": "Number of maximum consecutive mistakes (retries) before exiting (default: 3)",
+            "args": {
+                "name": "count"
+            }
+        },
+        {
+            "name": [
+                "-t",
+                "--timeout"
+            ],
+            "description": "Optional timeout in seconds (default: 0 for no timeout)",
+            "args": {
+                "name": "seconds"
+            }
+        },
+        {
+            "name": "--acp",
+            "description": "Run in Agent Client Protocol (ACP) mode for editor integration"
+        },
+        {
+            "name": "--config",
+            "description": "Configuration directory (default: ~/.cline)",
+            "args": {
+                "name": "path",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": "--data-dir",
+            "description": "Use isolated local state at this directory path (default: ~/.cline/data)",
+            "args": {
+                "name": "path",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": "--hooks-dir",
+            "description": "Directory path to additional hooks for runtime hook injection (default: ~/.cline/hooks)",
+            "args": {
+                "name": "path",
+                "template": "filepaths"
+            }
+        },
+        {
+            "name": "--worktree",
+            "description": "Auto-create a detached git worktree under ~/.cline/worktrees/ and run the task there"
+        },
+        {
+            "name": "--update",
+            "description": "Check for updates and install if available"
+        },
+        {
+            "name": "--kanban",
+            "description": "Run the kanban app"
+        },
+        {
+            "name": [
+                "-v",
+                "--verbose"
+            ],
+            "description": "Show verbose output"
+        }
+    ],
+    "subcommands": [
+        {
+            "name": "auth",
+            "description": "Authenticate a provider and configure what model is used",
+            "args": {
+                "name": "provider",
+                "isOptional": true
+            },
+            "options": [
+                {
+                    "name": [
+                        "-p",
+                        "--provider"
+                    ],
+                    "description": "Provider ID",
+                    "args": {
+                        "name": "id"
+                    }
+                },
+                {
+                    "name": [
+                        "-k",
+                        "--apikey"
+                    ],
+                    "description": "API key",
+                    "args": {
+                        "name": "key"
+                    }
+                },
+                {
+                    "name": [
+                        "-m",
+                        "--modelid"
+                    ],
+                    "description": "Model ID",
+                    "args": {
+                        "name": "id"
+                    }
+                },
+                {
+                    "name": [
+                        "-b",
+                        "--baseurl"
+                    ],
+                    "description": "Base URL",
+                    "args": {
+                        "name": "url"
+                    }
+                },
+                {
+                    "name": "--azure-api-version",
+                    "description": "Azure API version",
+                    "args": {
+                        "name": "version"
+                    }
+                },
+                {
+                    "name": "--config",
+                    "description": "configuration directory",
+                    "args": {
+                        "name": "dir",
+                        "template": "folders"
+                    }
+                },
+                {
+                    "name": [
+                        "-c",
+                        "--cwd"
+                    ],
+                    "description": "Working directory",
+                    "args": {
+                        "name": "path",
+                        "template": "filepaths"
+                    }
+                },
+                {
+                    "name": "--data-dir",
+                    "description": "Use isolated local state at <dir> instead of ~/.cline (enables sandbox mode)",
+                    "args": {
+                        "name": "dir",
+                        "template": "folders"
+                    }
+                },
+                {
+                    "name": [
+                        "-v",
+                        "--verbose"
+                    ],
+                    "description": "Show verbose output"
+                }
+            ]
+        },
+        {
+            "name": "config",
+            "description": "Show current configuration",
+            "options": [
+                {
+                    "name": "--json",
+                    "description": "Output as JSON"
+                },
+                {
+                    "name": "--config",
+                    "description": "configuration directory",
+                    "args": {
+                        "name": "dir",
+                        "template": "folders"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "plugin",
+            "description": "Manage Cline Plugins",
+            "subcommands": [
+                {
+                    "name": [
+                        "install",
+                        "i"
+                    ],
+                    "description": "Install a Cline Plugin from an official keyword, npm, git, URL, or a local path",
+                    "args": {
+                        "name": "source"
+                    },
+                    "options": [
+                        {
+                            "name": "--npm",
+                            "description": "Treat source as an npm package"
+                        },
+                        {
+                            "name": "--git",
+                            "description": "Treat source as a git repository"
+                        },
+                        {
+                            "name": "--force",
+                            "description": "Replace an existing install for the same source"
+                        },
+                        {
+                            "name": "--json",
+                            "description": "Output as JSON"
+                        },
+                        {
+                            "name": "--cwd",
+                            "description": "Install to <path>/.cline/plugins",
+                            "args": {
+                                "name": "path",
+                                "template": "filepaths"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": [
+                        "uninstall",
+                        "remove"
+                    ],
+                    "description": "Uninstall a Cline Plugin by name or path",
+                    "args": {
+                        "name": "name"
+                    },
+                    "options": [
+                        {
+                            "name": "--json",
+                            "description": "Output as JSON"
+                        },
+                        {
+                            "name": "--cwd",
+                            "description": "Search <path>/.cline/plugins before global plugins",
+                            "args": {
+                                "name": "path",
+                                "template": "filepaths"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "skill",
+            "description": "Manage Cline Skills via the open skills CLI (npx skills)",
+            "args": {
+                "name": "args...",
+                "isOptional": true
+            },
+            "subcommands": [
+                {
+                    "name": [
+                        "add",
+                        "install"
+                    ],
+                    "description": "Add a skill into Cline",
+                    "args": {
+                        "name": "owner/repo"
+                    },
+                    "options": [
+                        {
+                            "name": "--owner",
+                            "description": "Search only repositories from a GitHub owner",
+                            "args": {
+                                "name": "owner"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-g",
+                                "--global"
+                            ],
+                            "description": "Update global skills only"
+                        },
+                        {
+                            "name": [
+                                "-p",
+                                "--project"
+                            ],
+                            "description": "Update project skills only"
+                        },
+                        {
+                            "name": [
+                                "-y",
+                                "--yes"
+                            ],
+                            "description": "Skip scope prompt (auto-detect: project if in a project, else global)"
+                        },
+                        {
+                            "name": [
+                                "-a",
+                                "--agent"
+                            ],
+                            "description": "Specify agents to install to (use '*' for all agents)",
+                            "args": {
+                                "name": "agents"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--skill"
+                            ],
+                            "description": "Specify skill names to install (use '*' for all skills)",
+                            "args": {
+                                "name": "skills"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-l",
+                                "--list"
+                            ],
+                            "description": "List available skills in the repository without installing"
+                        },
+                        {
+                            "name": "--copy",
+                            "description": "Copy files instead of symlinking to agent directories"
+                        },
+                        {
+                            "name": "--metadata",
+                            "description": "Attach valid JSON to the install telemetry event",
+                            "args": {
+                                "name": "json"
+                            }
+                        },
+                        {
+                            "name": "--subagent",
+                            "description": "Install to Eve subagents (use 'root' for the root agent)",
+                            "args": {
+                                "name": "names"
+                            }
+                        },
+                        {
+                            "name": "--all",
+                            "description": "Shorthand for --skill '*' --agent '*' -y"
+                        },
+                        {
+                            "name": "--full-depth",
+                            "description": "Search all subdirectories even when a root SKILL.md exists"
+                        },
+                        {
+                            "name": "--json",
+                            "description": "Output results as JSON (machine-readable, no ANSI codes)"
+                        },
+                        {
+                            "name": [
+                                "--version",
+                                "-v"
+                            ],
+                            "description": "Show version number"
+                        }
+                    ]
+                },
+                {
+                    "name": [
+                        "remove",
+                        "uninstall"
+                    ],
+                    "description": "Remove installed skills",
+                    "options": [
+                        {
+                            "name": [
+                                "-g",
+                                "--global"
+                            ],
+                            "description": "Remove from global scope (~/) instead of project scope"
+                        },
+                        {
+                            "name": [
+                                "-a",
+                                "--agent"
+                            ],
+                            "description": "Remove from specific agents (omit to clean all agent links)"
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--skill"
+                            ],
+                            "description": "Specify skills to remove (use '*' for all skills)"
+                        },
+                        {
+                            "name": [
+                                "-y",
+                                "--yes"
+                            ],
+                            "description": "Skip confirmation prompts"
+                        },
+                        {
+                            "name": "--all",
+                            "description": "Remove every installed skill (-y implied). Do not combine with named skills"
+                        }
+                    ]
+                },
+                {
+                    "name": "list",
+                    "description": "List installed skills",
+                    "options": [
+                        {
+                            "name": "--owner",
+                            "description": "Search only repositories from a GitHub owner",
+                            "args": {
+                                "name": "owner"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-g",
+                                "--global"
+                            ],
+                            "description": "Update global skills only"
+                        },
+                        {
+                            "name": [
+                                "-p",
+                                "--project"
+                            ],
+                            "description": "Update project skills only"
+                        },
+                        {
+                            "name": [
+                                "-y",
+                                "--yes"
+                            ],
+                            "description": "Skip scope prompt (auto-detect: project if in a project, else global)"
+                        },
+                        {
+                            "name": [
+                                "-a",
+                                "--agent"
+                            ],
+                            "description": "Specify agents to install to (use '*' for all agents)",
+                            "args": {
+                                "name": "agents"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-s",
+                                "--skill"
+                            ],
+                            "description": "Specify skill names to install (use '*' for all skills)",
+                            "args": {
+                                "name": "skills"
+                            }
+                        },
+                        {
+                            "name": [
+                                "-l",
+                                "--list"
+                            ],
+                            "description": "List available skills in the repository without installing"
+                        },
+                        {
+                            "name": "--copy",
+                            "description": "Copy files instead of symlinking to agent directories"
+                        },
+                        {
+                            "name": "--metadata",
+                            "description": "Attach valid JSON to the install telemetry event",
+                            "args": {
+                                "name": "json"
+                            }
+                        },
+                        {
+                            "name": "--subagent",
+                            "description": "Install to Eve subagents (use 'root' for the root agent)",
+                            "args": {
+                                "name": "names"
+                            }
+                        },
+                        {
+                            "name": "--all",
+                            "description": "Shorthand for --skill '*' --agent '*' -y"
+                        },
+                        {
+                            "name": "--full-depth",
+                            "description": "Search all subdirectories even when a root SKILL.md exists"
+                        },
+                        {
+                            "name": "--json",
+                            "description": "Output results as JSON (machine-readable, no ANSI codes)"
+                        },
+                        {
+                            "name": [
+                                "--version",
+                                "-v"
+                            ],
+                            "description": "Show version number"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "connect",
+            "description": "Connect to an external channel",
+            "args": {
+                "name": "channel",
+                "isOptional": true
+            },
+            "options": [
+                {
+                    "name": "--stop",
+                    "description": "Kill all current channel connections"
+                },
+                {
+                    "name": "--restart",
+                    "description": "Restart a channel connection"
+                },
+                {
+                    "name": "--restart-instance",
+                    "description": "Restart one connector instance (used by daemon recovery)",
+                    "args": {
+                        "name": "id"
+                    }
+                },
+                {
+                    "name": "--cleanup-instance",
+                    "description": "Reap one dead connector instance, preserving autostart (used by hub supervision)",
+                    "args": {
+                        "name": "id"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "mcp",
+            "description": "Manage MCP servers",
+            "subcommands": [
+                {
+                    "name": [
+                        "install",
+                        "add"
+                    ],
+                    "description": "Open the MCP add wizard with server fields prefilled",
+                    "args": [
+                        {
+                            "name": "name"
+                        },
+                        {
+                            "name": "targetArgs...",
+                            "isOptional": true
+                        }
+                    ],
+                    "options": [
+                        {
+                            "name": "--transport",
+                            "description": "stdio, sse, http, streamable-http, or streamableHttp (default: stdio)",
+                            "args": {
+                                "name": "transport"
+                            }
+                        },
+                        {
+                            "name": "--header",
+                            "description": "Remote MCP request header (default: [])",
+                            "args": {
+                                "name": "header"
+                            }
+                        },
+                        {
+                            "name": "--yes",
+                            "description": "Install noninteractively without opening the wizard"
+                        },
+                        {
+                            "name": "--json",
+                            "description": "Output as JSON"
+                        }
+                    ]
+                },
+                {
+                    "name": [
+                        "uninstall",
+                        "remove"
+                    ],
+                    "description": "Uninstall an MCP server by name",
+                    "args": {
+                        "name": "name"
+                    },
+                    "options": [
+                        {
+                            "name": "--json",
+                            "description": "Output as JSON"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "doctor",
+            "description": "Diagnose and fix configuration issues",
+            "subcommands": [
+                {
+                    "name": "fix",
+                    "description": "Kill all running processes",
+                    "options": [
+                        {
+                            "name": "--cwd",
+                            "description": "Workspace root (default: \"/private/tmp\")",
+                            "args": {
+                                "name": "path",
+                                "template": "filepaths"
+                            }
+                        },
+                        {
+                            "name": "--json",
+                            "description": "Output as JSON"
+                        },
+                        {
+                            "name": [
+                                "-v",
+                                "--verbose"
+                            ],
+                            "description": "Show additional diagnostic details"
+                        }
+                    ]
+                },
+                {
+                    "name": "log",
+                    "description": "Open the CLI log file"
+                }
+            ]
+        },
+        {
+            "name": [
+                "history",
+                "h"
+            ],
+            "description": "List session history or manage saved sessions",
+            "options": [
+                {
+                    "name": "--json",
+                    "description": "Output as JSON"
+                },
+                {
+                    "name": "--limit",
+                    "description": "Maximum number of sessions to show (default: \"50\")",
+                    "args": {
+                        "name": "count"
+                    }
+                },
+                {
+                    "name": "--config",
+                    "description": "configuration directory",
+                    "args": {
+                        "name": "dir",
+                        "template": "folders"
+                    }
+                }
+            ],
+            "subcommands": [
+                {
+                    "name": "delete",
+                    "description": "Delete a session from history",
+                    "options": [
+                        {
+                            "name": "--session-id",
+                            "description": "Session ID to delete",
+                            "args": {
+                                "name": "id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "update",
+                    "description": "Update a session in history",
+                    "options": [
+                        {
+                            "name": "--metadata",
+                            "description": "Metadata as JSON string",
+                            "args": {
+                                "name": "json"
+                            }
+                        },
+                        {
+                            "name": "--prompt",
+                            "description": "New prompt text",
+                            "args": {
+                                "name": "text"
+                            }
+                        },
+                        {
+                            "name": "--session-id",
+                            "description": "Session ID to update",
+                            "args": {
+                                "name": "id"
+                            }
+                        },
+                        {
+                            "name": "--title",
+                            "description": "New title",
+                            "args": {
+                                "name": "text"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "export",
+                    "description": "Export a session as a standalone HTML file",
+                    "args": {
+                        "name": "sessionId"
+                    },
+                    "options": [
+                        {
+                            "name": [
+                                "-o",
+                                "--output"
+                            ],
+                            "description": "Output HTML file path",
+                            "args": {
+                                "name": "path",
+                                "template": "filepaths"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "hook",
+            "description": "Handle a hook payload from stdin"
+        },
+        {
+            "name": "schedule",
+            "description": "Manage scheduled tasks"
+        },
+        {
+            "name": "hub",
+            "description": "Manage the local hub daemon"
+        },
+        {
+            "name": "update",
+            "description": "Check for updates and install if available",
+            "options": [
+                {
+                    "name": [
+                        "-v",
+                        "--verbose"
+                    ],
+                    "description": "Show verbose output"
+                },
+                {
+                    "name": "--config",
+                    "description": "configuration directory",
+                    "args": {
+                        "name": "dir",
+                        "template": "folders"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "version",
+            "description": "Show Cline CLI version number"
+        },
+        {
+            "name": "kanban",
+            "description": "Run the kanban app"
+        }
+    ]
+}
