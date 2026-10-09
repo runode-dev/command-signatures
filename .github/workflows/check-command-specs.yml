@@ -22,8 +22,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      # 一个一个来：每个都可能往 main 推提交，同时推会互相挡。
-      max-parallel: 1
       matrix:
         include:
           - command: pi
@@ -77,10 +75,10 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "$spec"
           git commit -m "按 $COMMAND $version 的 --help 改 $COMMAND.json 的选项和子命令"
-          # 前面几个命令的 job 刚推过时，先接上它们的提交再推。
-          for attempt in 1 2 3; do
+          # 几个命令的 job 同时跑，别人刚推过时推不上去，先接上它们的提交再推；改的是不同文件，不会冲突。
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
-            sleep 5
+            sleep $((RANDOM % 10 + 2))
           done
           exit 1
       - name: 核对，开或关 issue
