@@ -9,6 +9,7 @@
 帮助的写法有 commander、clap、yargs 三种，读不出来的（比如叶子命令把上一级的帮助原样
 打出来）当没有帮助。
 """
+import functools
 import importlib.util
 import json
 import os
@@ -24,7 +25,8 @@ ROOT = {}
 IGNORED = {"-h", "--help"}
 
 
-def help_text(cmd, path):
+@functools.lru_cache(maxsize=None)
+def _help_text(cmd, path):
     r = subprocess.run([cmd, *path, "--help"], capture_output=True, text=True, timeout=60, cwd="/tmp")
     t = "\n".join(l for l in (r.stdout + r.stderr).splitlines() if not l.startswith("INFO ")) + "\n"
     m = re.search(r"^Usage: (.*)$", t, re.M)
@@ -34,6 +36,10 @@ def help_text(cmd, path):
     if path and (len(path) > 6 or t == ROOT.get(cmd)):
         return ""
     return t
+
+
+def help_text(cmd, path):
+    return _help_text(cmd, tuple(path))
 
 
 def indent(l):
@@ -206,6 +212,10 @@ def sync(cmd, node, path, log):
     text = help_text(cmd, path)
     where = " ".join([cmd, *path])
     have = {n for o in node.get("options", []) for n in names(o["name"])}
+    # 帮助和这一级一字不差的子命令，选项算这一级的（check-command-spec.py 也这样并起来比）。
+    for s in node.get("subcommands", []):
+        if text and help_text(cmd, [*path, names(s["name"])[0]]) == text:
+            have |= check.all_options(s)
     found = check.help_options(text)
     for o in parse_options(text):
         ns = [n for n in o[0] if n in found]
@@ -238,7 +248,12 @@ def sync(cmd, node, path, log):
         subs |= set(names(sub["name"]))
         log.append(f"+sub {where} {main}")
     for s in node.get("subcommands", []):
-        sync(cmd, s, [*path, names(s["name"])[0]], log)
+        sub_path = [*path, names(s["name"])[0]]
+        # 子命令的帮助和这一级一字不差（pi mcp 下各个子命令都打 mcp 的帮助）时，它的选项和
+        # 子命令就是这一级的，再往下钻只会一层层套自己。check-command-spec.py 也这样合并。
+        if text and help_text(cmd, sub_path) == text:
+            continue
+        sync(cmd, s, sub_path, log)
 
 
 def prune(cmd, node, path, log):
@@ -275,7 +290,10 @@ def prune(cmd, node, path, log):
         if "subcommands" in node:
             node["subcommands"] = keep
     for s in node.get("subcommands", []):
-        prune(cmd, s, [*path, names(s["name"])[0]], log)
+        sub_path = [*path, names(s["name"])[0]]
+        if text and help_text(cmd, sub_path) == text:
+            continue
+        prune(cmd, s, sub_path, log)
 
 
 if __name__ == "__main__":
