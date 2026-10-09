@@ -1511,7 +1511,9 @@
                     "description": "Transport endpoint URL (stdio:// or ws://IP:PORT)",
                     "args": {
                         "name": "URL",
-                        "suggestions": ["stdio://"]
+                        "suggestions": [
+                            "stdio://"
+                        ]
                     }
                 },
                 {
@@ -2190,17 +2192,6 @@
                 {
                     "name": "--include-managed-config",
                     "description": "Include managed requirements while resolving an explicit permissions profile"
-                },
-                {
-                    "name": "--allow-unix-socket",
-                    "description": "Allow the sandboxed command to bind/connect AF_UNIX sockets rooted at this path",
-                    "args": {
-                        "name": "ALLOW_UNIX_SOCKETS"
-                    }
-                },
-                {
-                    "name": "--log-denials",
-                    "description": "While the command runs, capture macOS sandbox denials via `log stream` and print them after exit"
                 }
             ],
             "subcommands": [
@@ -4097,48 +4088,6 @@
                             }
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "name": "app",
-            "description": "Launch the Desktop app (opens the app installer if missing)",
-            "args": {
-                "name": "PATH",
-                "isOptional": true,
-                "template": "filepaths"
-            },
-            "options": [
-                {
-                    "name": [
-                        "-c",
-                        "--config"
-                    ],
-                    "description": "Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`",
-                    "args": {
-                        "name": "key=value"
-                    }
-                },
-                {
-                    "name": "--download-url",
-                    "description": "Override the app installer download URL (advanced)",
-                    "args": {
-                        "name": "DOWNLOAD_URL_OVERRIDE"
-                    }
-                },
-                {
-                    "name": "--enable",
-                    "description": "Enable a feature (repeatable). Equivalent to `-c features.<name>=true`",
-                    "args": {
-                        "name": "FEATURE"
-                    }
-                },
-                {
-                    "name": "--disable",
-                    "description": "Disable a feature (repeatable). Equivalent to `-c features.<name>=false`",
-                    "args": {
-                        "name": "FEATURE"
-                    }
                 }
             ]
         },
